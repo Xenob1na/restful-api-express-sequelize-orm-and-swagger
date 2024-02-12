@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { User } from "../models/user.model";
+import { Blog } from "../models/blog.model";
 
 import "dotenv/config";
 
@@ -10,7 +11,7 @@ const connection = new Sequelize({
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   logging: true,
-  models: [User],
+  models: [User, Blog],
 });
 
-export default connection
+export default connection;

@@ -7,13 +7,15 @@ import connection from "./database/db";
 import { json, urlencoded } from "body-parser";
 
 import userRouter from "./routers/user.router";
+import blogRouter from "./routers/blog.router";
 
 const app = express();
 
 app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
-app.use('/api/v1/users', userRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/blogs", blogRouter);
 
 app.use(
   (
