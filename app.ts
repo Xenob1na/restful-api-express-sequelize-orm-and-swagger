@@ -9,13 +9,24 @@ import { json, urlencoded } from "body-parser";
 import userRouter from "./routers/user.router";
 import blogRouter from "./routers/blog.router";
 
+
+const fs = require("fs")
+const YAML = require('yaml')
+const swaggerUi = require('swagger-ui-express');
+const file  = fs.readFileSync('./swaggerAuth.yaml', 'utf8')
+const swaggerDocument = YAML.parse(file)
+
 const app = express();
+
+
 
 app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
+
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/blogs", blogRouter);
+app.use('/api-docs/auth', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(
   (

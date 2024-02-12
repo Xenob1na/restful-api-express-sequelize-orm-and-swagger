@@ -1,0 +1,71 @@
+openapi: "3.1.0"
+info:
+  description: "Данный сервис определяет авторизацию и регистрацию пользователя"
+  title: "Авторизация и Регистрация"
+  version: "1.0.0"
+  contact:
+    email: "secret@yandex.ru"
+externalDocs:
+  description: "Ссылка на внешнюю документацию"
+  url: "http://localhost:3000"
+paths:
+  /api/v1/users/register:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUpDto"
+        description: "Входные данные"
+        required: true
+      description: "Регистрация пользователя"
+      tags:
+        - "Регистрация"
+
+  /api/v1/users/login:
+    post:
+      requestBody:
+        $ref: "#/components/requestBodies/SignInDto"
+      description: "Авторизация пользователя"
+      tags:
+        - "Авторизация"
+  
+servers:
+  - url: "http://localhost:3000"
+  - url: "https://localhost:3000"
+components:
+  requestBodies:
+    SignInDto:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/SignInDto"
+      description: "Входные данные"
+      required: true
+  schemas:
+    SignInDto:
+      required:
+        - "email"
+        - "password"
+      properties:
+        email:
+          type: "string"
+          description: ""
+        password:
+          type: "string"
+          description: ""
+    SignUpDto:
+      required:
+        - "name"
+        - "email"
+        - "password"
+      properties:
+        name:
+          type: "string"
+          description: ""
+        email:
+          type: "string"
+          description: ""
+        password:
+          type: "string"
+          description: ""
