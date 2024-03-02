@@ -26,7 +26,7 @@ export class Blog extends Model {
 
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    defaultValue: "http://via.placeholder.com/500x180?text=No%20Image",
   })
   image!: string;
 

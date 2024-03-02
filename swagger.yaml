@@ -1,13 +1,10 @@
 openapi: "3.1.0"
 info:
-  description: "Данный сервис определяет авторизацию и регистрацию пользователя"
-  title: "Авторизация и Регистрация"
+  description: "все операции взаимодействия с rest API"
+  title: "Данный сервис определяет все операции взаимодействия с rest API"
   version: "1.0.0"
   contact:
     email: "secret@yandex.ru"
-externalDocs:
-  description: "Ссылка на внешнюю документацию"
-  url: "http://localhost:3000"
 paths:
   /api/v1/users/register:
     post:
@@ -29,6 +26,14 @@ paths:
       description: "Авторизация пользователя"
       tags:
         - "Авторизация"
+
+  /api/v1/blogs/Blogs:
+    get:
+      requestBody:
+        $ref: "#/components/requestBodies/GetAllBlogsDto"
+      description: "Получение блогов"
+      tags:
+        - "Получение блогов"
   
 servers:
   - url: "http://localhost:3000"
@@ -67,5 +72,50 @@ components:
           type: "string"
           description: ""
         password:
+          type: "string"
+          description: ""
+
+  schemas:
+    GetAllBlogssDto:
+      properties:
+        title:
+          type: "string"
+          description: ""
+        content:
+          type: "string"
+          description: ""
+        image:
+          type: "string"
+          description: ""
+        author:
+          type: "string"
+          description: ""
+        category:
+          type: "string"
+          description: ""
+    GetAllBlogsDto:
+      required:
+        - "title"
+        - "content"
+        - "image"
+        - "author"
+        - "category"
+      properties:
+        title:
+          type: "string"
+          description: ""
+        content:
+          type: "string"
+          description: ""
+        image:
+          type: "string"
+          description: ""
+        author:
+          type: "string"
+          description: ""
+        category:
+          type: "string"
+          description: ""
+        created_at:
           type: "string"
           description: ""

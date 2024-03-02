@@ -55,7 +55,7 @@ export const updateBlog: RequestHandler = async (req, res) => {
 
     const updateBlogs: Blog | null = await Blog.findByPk(id);
 
-    return res.status(200).json({ message: "Blog Update", data: updateBlog });
+    return res.status(200).json({ message: "Blog Update", data: updateBlogs });
   } catch (error) {
     console.log(error);
   }

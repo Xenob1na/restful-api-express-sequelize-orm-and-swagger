@@ -42,15 +42,29 @@ export const signInUser: RequestHandler = async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({
-      data: {
-        userId: user.id,
-        name: user.name,
-        email: user.email,
+    res
+      .cookie("accessToken", token, { httpOnly: true })
+      .status(200)
+      .json({
+        data: {
+          userId: user.id,
+          name: user.name,
+          email: user.email,
+        },
         accessToken: token,
-      },
-      message: "User logged in successfully",
-    });
+        message: "User logged in successfully",
+      });
+  } catch (err) {
+    return res.status(500).json("Error: " + err);
+  }
+};
+
+export const logoutUser: RequestHandler = async (req, res) => {
+  try {
+    res
+      .clearCookie("accessToken")
+      .status(200)
+      .json({ message: "User logged out successfully" });
   } catch (err) {
     return res.status(500).json("Error: " + err);
   }
