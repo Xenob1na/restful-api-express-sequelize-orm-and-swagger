@@ -43,7 +43,7 @@ export const signInUser: RequestHandler = async (req, res) => {
     });
 
     res
-      .cookie("accessToken", token, { httpOnly: true })
+      .cookie("accessToken", token, { httpOnly: true, sameSite: "strict" })
       .status(200)
       .json({
         data: {

@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 
 import { Blog } from "../models/blog.model";
+import { parse } from "path";
 
 export const createBlog: RequestHandler = async (req, res) => {
   try {
@@ -15,20 +16,34 @@ export const createBlog: RequestHandler = async (req, res) => {
 
 export const deleteBlog: RequestHandler = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
 
-    const blog = await Blog.findOne({ where: { id } });
-    return res
-      .status(200)
-      .json({ message: "Blog deleted successfully", data: blog });
+    await Blog.destroy({
+      where: {
+        id,
+      },
+    });
+
+    res.status(200).json({ message: "Success" });
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error);
   }
 };
 
 export const getAllBlogs: RequestHandler = async (req, res) => {
+  const page: number = parseInt(req.query.page as string) || 1;
+  const limit: number = parseInt(req.query.limit as string) || 4;
+  let allBlogs;
   try {
-    const allBlogs: Blog[] = await Blog.findAll();
+    if (page && limit) {
+      allBlogs = await Blog.findAndCountAll({
+        offset: (page - 1) * limit,
+        limit: limit,
+      });
+    } else {
+      allBlogs = await Blog.findAll();
+    }
+
     return res.status(200).json({ message: "All blogs", data: allBlogs });
   } catch (error) {
     console.log(error);

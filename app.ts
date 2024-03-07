@@ -10,7 +10,7 @@ import userRouter from "./routers/user.router";
 import blogRouter from "./routers/blog.router";
 
 
-import session from "express-session";
+
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 
@@ -36,12 +36,7 @@ app.use(urlencoded({ extended: true }));
 app.use(limiter);
 
 
-app.use(session({
-  secret: "keyboard cat",
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true, sameSite: "strict", maxAge: 24 * 60 * 60 * 1000, httpOnly: true },
-}))
+
 app.use(helmet());
 
 app.use("/api/v1/users", userRouter);
